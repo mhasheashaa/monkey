@@ -2,9 +2,9 @@ use crate::token::*;
 
 pub struct Lexer {
   input: String,
-  position: usize,
-  read_position: usize,
-  ch: Option<char>,
+  position: usize,      // current position in input (points to current char)
+  read_position: usize, // current reading position in input (after current char)
+  ch: Option<char>,     // current char under examination
 }
 
 impl Lexer {
@@ -143,7 +143,7 @@ impl Lexer {
           };
         }
         _ => {
-          // we return early from identier and number branches because read_identifier and read_number advance
+          // we return early from identifier and number branches because read_identifier and read_number advance
           // ch past the last character of the literal, so we do not need to read_char again at the end of this function
           if is_letter(ch) {
             let literal = self.read_identifier();
